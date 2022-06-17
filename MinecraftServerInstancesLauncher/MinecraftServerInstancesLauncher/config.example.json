@@ -1,0 +1,7 @@
+{
+  "JavaVersion": "jdk-17.0.2",
+  "ServerVersion": "1.19",
+  "Vanilla": true,
+  "MinRam": "1G",
+  "MaxRam": "4G"
+}

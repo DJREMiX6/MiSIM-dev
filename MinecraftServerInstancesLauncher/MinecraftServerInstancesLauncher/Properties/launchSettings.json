@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MinecraftServerInstancesLauncher": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    }
+  }
+}
