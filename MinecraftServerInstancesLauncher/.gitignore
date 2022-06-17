@@ -1,0 +1,5 @@
+/.vs
+/MinecraftServerInstancesLauncher/bin
+/MinecraftServerInstancesLauncher/obj
+/MinecraftServerInstancesLauncher/JavaInstances/*.*
+/MinecraftServerInstancesLauncher/MinecraftServerVersions/*.*
