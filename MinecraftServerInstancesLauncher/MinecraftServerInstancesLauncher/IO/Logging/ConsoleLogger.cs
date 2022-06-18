@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using MinecraftServerInstancesLauncher.Common.Utils.ConsoleManagement;
+using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 
 namespace MinecraftServerInstancesLauncher.IO.Logging
 {
@@ -15,18 +16,21 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
         {
             ConsoleColorsManager.SetWarningConsoleColors();
             Console.WriteLine(message);
+            ConsoleColorsManager.SetDefaultConsoleColors();
         }
 
         public void LogError(string message)
         {
             ConsoleColorsManager.SetErrorConsoleColors();
             Console.WriteLine(message);
+            ConsoleColorsManager.SetDefaultConsoleColors();
         }
 
         public void LogInfo(string message)
         {
             ConsoleColorsManager.SetInfoConsoleColors();
             Console.WriteLine(message);
+            ConsoleColorsManager.SetDefaultConsoleColors();
         }
         #endregion ILogger IMPLEMENTATION
 
@@ -35,7 +39,7 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
         {
             if (e.Data is not null)
             {
-                Log(e.Data);
+                LogError(e.Data);
             }
         }
 
@@ -47,5 +51,28 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
             }
         }
         #endregion IProcessDataReceiver IMPLEMENTATION
+
+        #region IMinecraftServerInterpretedDataReceiver IMPLEMENTATION
+        public void MinecraftServerOutputInterpretedDataReceived(object sender, MinecraftServerInterpretedOutputData data)
+        {
+            switch(data.Type)
+            {
+                case MinecraftServerOutputType.INFO:
+                    LogInfo(data.Data);
+                    break;
+                case MinecraftServerOutputType.WARNING:
+                    LogWaring(data.Data);
+                    break;
+                case MinecraftServerOutputType.ERROR:
+                    LogError(data.Data);
+                    break;
+                case MinecraftServerOutputType.DEFAULT:
+                    Log(data.Data);
+                    break;
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
+        #endregion IMinecraftServerInterpretedDataReceiver IMPLEMENTATION
     }
 }

@@ -91,17 +91,31 @@ Console.WriteLine(MinecraftServerStringBuilder.BuildArgs(serverInstanceLauncherC
 }*/
 #endregion JAVA VERSIONS LISTING
 
+#region CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
+
+#if DEBUG
+if(!Directory.Exists(Constants.SERVERS_VERSIONS_FULL_PATH))
+{
+    Directory.CreateDirectory(Constants.SERVERS_VERSIONS_FULL_PATH);
+}
+if(!Directory.Exists(Constants.JAVA_INSTANCES_FULL_PATH))
+{
+    Directory.CreateDirectory(Constants.JAVA_INSTANCES_FULL_PATH);
+}
+#endif
+
+#endregion CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
+
 MinecraftServerProcessManager minecraftServerProcessManager = new();
 ILogger logger = new ConsoleLogger();
 MinecraftServerOutputInterpreter interpreter = new();
 
-minecraftServerProcessManager.SubscribeToProcessEvents(logger);
 minecraftServerProcessManager.SubscribeToProcessEvents(interpreter);
-interpreter.MinecraftServerOutputDataInterpreted += (sender, data) =>
-{
-    Console.WriteLine($"{data.Data}: {data.Type}");
-};
+interpreter.MinecraftServerOutputDataInterpreted += logger.MinecraftServerOutputInterpretedDataReceived;
 minecraftServerProcessManager.StartServerInstance();
 
-Console.WriteLine("Press any key to continue...");
-Console.ReadKey();
+if (args.Contains("--pause"))
+{
+    Console.WriteLine("Press any key to continue...");
+    Console.ReadKey();
+}
