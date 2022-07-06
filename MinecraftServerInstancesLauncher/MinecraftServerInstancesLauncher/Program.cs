@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.CommandLine;
 using MinecraftServerInstancesLauncher.IO.Config;
 using MinecraftServerInstancesLauncher.Common.Utils;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement;
@@ -105,6 +106,11 @@ if(!Directory.Exists(Constants.JAVA_INSTANCES_FULL_PATH))
 #endif
 
 #endregion CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
+
+var pauseOption = new Option<bool>(aliases: new[] {"p", "pause" }, description: "Pause the application before exit.", getDefaultValue: () => false);
+var rootCommand = new RootCommand("Sample app");
+rootCommand.AddOption(pauseOption);
+rootCommand.Invoke(args);
 
 MinecraftServerProcessManager minecraftServerProcessManager = new();
 ILogger logger = new ConsoleLogger();
