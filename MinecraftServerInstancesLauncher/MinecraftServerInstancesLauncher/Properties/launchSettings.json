@@ -2,7 +2,6 @@
   "profiles": {
     "MinecraftServerInstancesLauncher": {
       "commandName": "Project",
-      "commandLineArgs": "--pause",
       "hotReloadEnabled": false
     }
   }

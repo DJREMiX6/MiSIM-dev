@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using System.CommandLine;
-using MinecraftServerInstancesLauncher.IO.Config;
+﻿using MinecraftServerInstancesLauncher.IO.Config;
 using MinecraftServerInstancesLauncher.Common.Utils;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement;
 using MinecraftServerInstancesLauncher.IO.Logging;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
+using MinecraftServerInstancesLauncher.Common.Utils.ArgsResolving;
 
 #region OLD WORKING
 /*
@@ -107,10 +106,13 @@ if(!Directory.Exists(Constants.JAVA_INSTANCES_FULL_PATH))
 
 #endregion CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
 
-var pauseOption = new Option<bool>(aliases: new[] {"p", "pause" }, description: "Pause the application before exit.", getDefaultValue: () => false);
-var rootCommand = new RootCommand("Sample app");
-rootCommand.AddOption(pauseOption);
-rootCommand.Invoke(args);
+ArgsResolverBase argsResolver = new ArgsResolver("MiSIL - Minecraft Server Instances Launcher", args)
+    .AddOptionChain(Constants.APPLICATION_PAUSE_PARAM_OPTION)
+    .Resolve();
+bool pause = argsResolver.GetResult<bool>(Constants.APPLICATION_PAUSE_PARAM_OPTION.Name);
+Console.WriteLine($"Pause option: {pause}");
+
+
 
 MinecraftServerProcessManager minecraftServerProcessManager = new();
 ILogger logger = new ConsoleLogger();
@@ -120,7 +122,7 @@ minecraftServerProcessManager.SubscribeToProcessEvents(interpreter);
 interpreter.MinecraftServerOutputDataInterpreted += logger.MinecraftServerOutputInterpretedDataReceived;
 minecraftServerProcessManager.StartServerInstance();
 
-if (args.Contains("--pause"))
+if(pause)
 {
     Console.WriteLine("Press any key to continue...");
     Console.ReadKey();

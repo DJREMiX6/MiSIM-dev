@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MinecraftServerInstancesLauncher.Common.Utils.ArgsResolving;
 using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.Common.Utils
@@ -20,6 +21,10 @@ namespace MinecraftServerInstancesLauncher.Common.Utils
 #endif
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
+        private static string APPLICATION_NAME = "MiSIL - Minecraft Server Instances Launcher";
+        private static string[] APPLICATION_PAUSE_PARAM_NAME => new string[] { "--pause", "-p" };
+        private static string APPLICATION_PAUSE_PARAM_DESCRIPTION => "Pause the program before exit";
+        public static OptionWrapper<bool> APPLICATION_PAUSE_PARAM_OPTION => new OptionWrapper<bool>(APPLICATION_PAUSE_PARAM_NAME, APPLICATION_PAUSE_PARAM_DESCRIPTION);
         private static string JAVA_INSTANCES_FOLDER_NAME => "JavaInstances";
         public static string JAVA_INSTANCES_FULL_PATH => $@"{MiSIM_FULL_PATH}\{JAVA_INSTANCES_FOLDER_NAME}";
         public static string JAVA_EXE_PATH => @"bin\java.exe";
