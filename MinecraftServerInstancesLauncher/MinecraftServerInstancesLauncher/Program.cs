@@ -1,4 +1,5 @@
 ﻿using MinecraftServerInstancesLauncher.ApplicationBuilder;
+using MinecraftServerInstancesLauncher.Common.Utils;
 
 #region OLD WORKING
 /*
@@ -101,6 +102,20 @@ if(!Directory.Exists(Constants.JAVA_INSTANCES_FULL_PATH))
 
 #endregion CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
 
+#region INITIALIZE APPLICATION BUILDER BASED ON DEBUG
+
+#if DEBUG
+
+IApplicationBuilder builder = new DebugApplicationBuilder()
+    .Build(args)
+    .Start();
+
+#else
+
 IApplicationBuilder builder = new DefaultApplicationBuilder()
     .Build(args)
     .Start();
+
+#endif
+
+#endregion INITIALIZE APPLICATION BUILDER BASED ON DEBUG

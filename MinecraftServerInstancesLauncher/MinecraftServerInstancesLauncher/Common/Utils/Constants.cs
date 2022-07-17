@@ -15,9 +15,11 @@ namespace MinecraftServerInstancesLauncher.Common.Utils
 #if DEBUG
         //Project Root Directory
         public static string MiSIM_FULL_PATH => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        public static bool DEBUG => true;
 #else
         //MiSIM Root Directory
         public static string MiSIM_FULL_PATH => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        public static bool DEBUG => false;
 #endif
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
