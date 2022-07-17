@@ -34,7 +34,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         {
             _minecraftServerProcessManager.StartServerInstance();
 
-            if (_argsResolver.GetResult<bool>(Constants.APPLICATION_PAUSE_PARAM_OPTION.Name) {
+            if (_argsResolver.GetResult<bool>(Constants.APPLICATION_PAUSE_PARAM_OPTION.Name)) {
                 Console.WriteLine("Press any key to continue..");
                 Console.ReadKey();
             }
