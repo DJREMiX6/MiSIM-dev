@@ -4,6 +4,7 @@ using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement;
 using MinecraftServerInstancesLauncher.IO.Logging;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 using MinecraftServerInstancesLauncher.Common.Utils.ArgsResolving;
+using MinecraftServerInstancesLauncher.ApplicationBuilder;
 
 #region OLD WORKING
 /*
@@ -94,7 +95,7 @@ Console.WriteLine(MinecraftServerStringBuilder.BuildArgs(serverInstanceLauncherC
 #region CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
 
 #if DEBUG
-if(!Directory.Exists(Constants.SERVERS_VERSIONS_FULL_PATH))
+if (!Directory.Exists(Constants.SERVERS_VERSIONS_FULL_PATH))
 {
     Directory.CreateDirectory(Constants.SERVERS_VERSIONS_FULL_PATH);
 }
@@ -106,24 +107,6 @@ if(!Directory.Exists(Constants.JAVA_INSTANCES_FULL_PATH))
 
 #endregion CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
 
-ArgsResolverBase argsResolver = new ArgsResolver("MiSIL - Minecraft Server Instances Launcher", args)
-    .AddOptionChain(Constants.APPLICATION_PAUSE_PARAM_OPTION)
-    .Resolve();
-bool pause = argsResolver.GetResult<bool>(Constants.APPLICATION_PAUSE_PARAM_OPTION.Name);
-Console.WriteLine($"Pause option: {pause}");
-
-
-
-MinecraftServerProcessManager minecraftServerProcessManager = new();
-ILogger logger = new ConsoleLogger();
-MinecraftServerOutputInterpreter interpreter = new();
-
-minecraftServerProcessManager.SubscribeToProcessEvents(interpreter);
-interpreter.MinecraftServerOutputDataInterpreted += logger.MinecraftServerOutputInterpretedDataReceived;
-minecraftServerProcessManager.StartServerInstance();
-
-if(pause)
-{
-    Console.WriteLine("Press any key to continue...");
-    Console.ReadKey();
-}
+IApplicationBuilder builder = new DefaultApplicationBuilder()
+    .Build(args)
+    .Start();
