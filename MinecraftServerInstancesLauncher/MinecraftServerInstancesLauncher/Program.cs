@@ -1,5 +1,5 @@
-﻿using MinecraftServerInstancesLauncher.ApplicationBuilder;
-using MinecraftServerInstancesLauncher.Common.Utils;
+﻿global using MinecraftServerInstancesLauncher.Common.Utils.Const;
+using MinecraftServerInstancesLauncher.ApplicationBuilder;
 
 #region OLD WORKING
 /*
@@ -86,21 +86,6 @@ Console.WriteLine(MinecraftServerStringBuilder.BuildArgs(serverInstanceLauncherC
     Console.WriteLine(splittedPath[splittedPath.Length - 1]);
 }*/
 #endregion JAVA VERSIONS LISTING
-
-#region CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
-
-#if DEBUG
-if (!Directory.Exists(Constants.SERVERS_VERSIONS_FULL_PATH))
-{
-    Directory.CreateDirectory(Constants.SERVERS_VERSIONS_FULL_PATH);
-}
-if(!Directory.Exists(Constants.JAVA_INSTANCES_FULL_PATH))
-{
-    Directory.CreateDirectory(Constants.JAVA_INSTANCES_FULL_PATH);
-}
-#endif
-
-#endregion CHECKS FOR DIRECTORIES ONLY IN DEBUG MODE
 
 #region INITIALIZE APPLICATION BUILDER BASED ON DEBUG
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json;
-using MinecraftServerInstancesLauncher.Common.Utils;
+using MinecraftServerInstancesLauncher.Common.Utils.Const;
 
 namespace MinecraftServerInstancesLauncher.IO.Config
 {
@@ -54,7 +54,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
 
         public void LoadConfig()
         {
-            if (!File.Exists(Constants.CONFIG_FULL_FILE_PATH))
+            if (!File.Exists(ConstantsImplementation.Instance.CONFIG_FILE_FULL_PATH))
             {
                 CreateDefaultConfigFile();
             }
@@ -82,14 +82,14 @@ namespace MinecraftServerInstancesLauncher.IO.Config
 
         private void CreateConfigFile()
         {
-            configFileStream = File.Create(Constants.CONFIG_FULL_FILE_PATH);
+            configFileStream = File.Create(ConstantsImplementation.Instance.CONFIG_FILE_FULL_PATH);
             CloseConfigFileStream();
         }
 
         private void WriteDefaultValuesInConfigFile()
         {
             OpenConfigFileStream();
-            string configDefaultJsonString = JsonSerializer.Serialize(Constants.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
+            string configDefaultJsonString = JsonSerializer.Serialize(ConstantsImplementation.Instance.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
             foreach (char c in configDefaultJsonString)
             {
                 byte characterInByte = (byte)c;
@@ -100,7 +100,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
 
         private void OpenConfigFileStream()
         {
-            configFileStream = File.Open(Constants.CONFIG_FULL_FILE_PATH, FileMode.Open);
+            configFileStream = File.Open(ConstantsImplementation.Instance.CONFIG_FILE_FULL_PATH, FileMode.Open);
         }
 
         private void CloseConfigFileStream()

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement;
-using MinecraftServerInstancesLauncher.Common.Utils;
+using MinecraftServerInstancesLauncher.Common.Utils.Const;
 
 namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation
 {
@@ -37,15 +37,15 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Int
 
         private MinecraftServerOutputType GetOutputType(string data)
         {
-            if (data.ToUpper().Contains(Constants.MINECRAFT_SERVER_OUTPUT_ERROR))
+            if (data.ToUpper().Contains(ConstantsImplementation.Instance.MINECRAFT_SERVER_OUTPUT_ERROR))
             {
                 return MinecraftServerOutputType.ERROR;
             }
-            if (data.ToUpper().Contains(Constants.MINECRAFT_SERVER_OUTPUT_WARNING))
+            if (data.ToUpper().Contains(ConstantsImplementation.Instance.MINECRAFT_SERVER_OUTPUT_WARNING))
             {
                 return MinecraftServerOutputType.WARNING;
             }
-            if (data.ToUpper().Contains(Constants.MINECRAFT_SERVER_OUTPUT_INFO))
+            if (data.ToUpper().Contains(ConstantsImplementation.Instance.MINECRAFT_SERVER_OUTPUT_INFO))
             {
                 return MinecraftServerOutputType.INFO;
             }

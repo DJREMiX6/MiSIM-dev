@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace MinecraftServerInstancesLauncher.IO.Logging
 {
-    public class FileLogger : ILogger
+    internal class DebugLogger : ILogger
     {
-        //TODO
         public void Log(string message)
         {
             throw new NotImplementedException();
