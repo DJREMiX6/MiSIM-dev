@@ -8,11 +8,13 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
 {
     public class DebugApplicationBuilder : IApplicationBuilder
     {
+
+        private List<ILogger> _loggers;
         
         protected ArgsResolverBase _argsResolver;
         protected MinecraftServerProcessManager _minecraftServerProcessManager;
         protected MinecraftServerOutputInterpreter _minecraftServerOutputInterpreter;
-        protected ILogger[] _loggers;
+        protected List<ILogger> loggers => _loggers ?? (_loggers = new List<ILogger>());
         
         public IApplicationBuilder Build(string[] args)
         {
@@ -71,14 +73,14 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         }
 
         private void InitLoggers()
-        {
+        { 
             if (_argsResolver.GetResult<bool>(ConstantsImplementation.Instance.APPLICATION_CONSOLE_LOG_PARAM_OPTION.Name))
             {
-                _loggers.ToList().Add(new ConsoleLogger());
+                loggers.Add(new ConsoleLogger());
             }
             if (_argsResolver.GetResult<bool>(ConstantsImplementation.Instance.APPLICATION_FILE_LOG_PARAM_OPTION.Name))
             {
-                _loggers.ToList().Add(new FileLogger());
+                loggers.Add(new FileLogger());
             }
         }
 
@@ -94,7 +96,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
 
         private void SubscribeLoggersToServerOutputInterpretedDataReceivedEvent()
         {
-            foreach (ILogger logger in _loggers)
+            foreach (ILogger logger in loggers)
             {
                 _minecraftServerOutputInterpreter.MinecraftServerOutputDataInterpreted += logger.MinecraftServerOutputInterpretedDataReceived;
             }

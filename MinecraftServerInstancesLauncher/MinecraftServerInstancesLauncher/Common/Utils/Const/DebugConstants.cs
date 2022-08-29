@@ -14,7 +14,7 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         #region PATHS
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
-        public override string MiSIM_FULL_PATH => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        public override string MiSIM_FULL_PATH => Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 #pragma warning restore CS8602 // Dereference of a possibly null reference.*/
         public override string JAVA_INSTANCES_FOLDER_NAME => "JavaInstances";
         public override string JAVA_INSTANCES_FULL_PATH => $@"{MiSIM_FULL_PATH}\{JAVA_INSTANCES_FOLDER_NAME}";

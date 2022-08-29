@@ -9,11 +9,13 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
     public class DefaultApplicationBuilder : IApplicationBuilder
     {
 
+        private List<ILogger> _loggers;
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         protected ArgsResolverBase _argsResolver;
         protected MinecraftServerProcessManager _minecraftServerProcessManager;
         protected MinecraftServerOutputInterpreter _minecraftServerOutputInterpreter;
-        protected ILogger[] _loggers;
+        protected List<ILogger> loggers => _loggers ?? (_loggers = new List<ILogger>());
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         public IApplicationBuilder Build(string[] args)
@@ -58,11 +60,11 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         {
             if (_argsResolver.GetResult<bool>(ConstantsImplementation.Instance.APPLICATION_CONSOLE_LOG_PARAM_OPTION.Name))
             {
-                _loggers.ToList().Add(new ConsoleLogger());
+                loggers.Add(new ConsoleLogger());
             }
             if(_argsResolver.GetResult<bool>(ConstantsImplementation.Instance.APPLICATION_FILE_LOG_PARAM_OPTION.Name))
             {
-                _loggers.ToList().Add(new FileLogger());
+                loggers.Add(new FileLogger());
             }
         }
 
