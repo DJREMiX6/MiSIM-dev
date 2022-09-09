@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MinecraftServerInstancesLauncher.Common.Utils.Const
 {
-    public class DebugConstants : ConstantsImplementation
+    public class DebugConstants : ConstantsAbstraction
     {
 
         #region PATHS
@@ -70,6 +70,15 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public override ConsoleColor CONSOLE_ERROR_FOREGROUND_COLOR => ConsoleColor.DarkRed;
 
         #endregion CONSOLE COLORS
+
+        #region LOG FILE FORMATTING
+
+        public override string[] LOG_FILE_DEFAULT_COLOR_TAGS => new string[] { "<d>", "</d>" };
+        public override string[] LOG_FILE_INFO_COLOR_TAGS => new string[] { "<i>", "</i>" };
+        public override string[] LOG_FILE_WARNING_COLOR_TAGS => new string[] { "<w>", "</w>" };
+        public override string[] LOG_FILE_ERROR_COLOR_TAGS => new string[] { "<e>", "</e>" };
+
+        #endregion LOG FILE FORMATTING
 
         #region APPLICATION ARGS
 

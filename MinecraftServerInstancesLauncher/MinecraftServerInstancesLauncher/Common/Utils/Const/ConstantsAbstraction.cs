@@ -3,26 +3,56 @@ using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.Common.Utils.Const
 {
-    public abstract class ConstantsImplementation
+    /// <summary>
+    /// Contains the abstraction of all the constants as a Singleton.
+    /// </summary>
+    public abstract class ConstantsAbstraction
     {
-        #region PUBLIC PROPS
 
-        public static ConstantsImplementation Instance { get; set; }
-        public string APPLICATION_NAME => "MiSIL - Minecraft Server Instances Launcher";
+        #region PRIVATE STATIC FIELDS
+
+        private static ConstantsAbstraction _instance;
+
+        #endregion PRIVATE STATIC FIELDS
+
+        #region PUBLIC STATIC PROPS
+
+        /// <summary>
+        /// Sets or gets the Singleton's instance.
+        /// <exception cref="value"">Throws <c>NullReferenceException</c> if Instance is null.</exception>
+        /// </summary>
+        public static ConstantsAbstraction Instance { 
+            get
+            {
+                if(_instance != null )
+                {
+                    return _instance;
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }
+            }
+            set
+            {
+                _instance = value;
+            }
+        }
+        public static string APPLICATION_NAME => "MiSIL - Minecraft Server Instances Launcher";
 
 #if DEBUG
-        public bool DEBUG => true;
+        /// <summary>
+        /// Returns <c>true</c>.
+        /// </summary>
+        public static bool DEBUG => true;
 #else
-        public bool DEBUG => false;
+        /// <summary>
+        /// Returns <c>false</c>.
+        /// </summary>
+        public static bool DEBUG => false;
 #endif
 
-        #endregion PUBLIC PROPS
-
-        #region CTORS
-
-        protected ConstantsImplementation() { }
-
-        #endregion CTORS
+        #endregion PUBLIC STATIC PROPS
 
         #region PUBLIC ABSTRACT CONSTANT PROPS
 
@@ -76,6 +106,15 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public abstract ConsoleColor CONSOLE_ERROR_FOREGROUND_COLOR { get; }
 
         #endregion CONSOLE COLORS
+
+        #region LOG FILE FORMATTING
+
+        public abstract string[] LOG_FILE_DEFAULT_COLOR_TAGS { get; }
+        public abstract string[] LOG_FILE_INFO_COLOR_TAGS { get; }
+        public abstract string[] LOG_FILE_WARNING_COLOR_TAGS { get; }
+        public abstract string[] LOG_FILE_ERROR_COLOR_TAGS { get; }
+
+        #endregion LOG FILE FORMATTING
 
         #region APPLICATION ARGS
 
