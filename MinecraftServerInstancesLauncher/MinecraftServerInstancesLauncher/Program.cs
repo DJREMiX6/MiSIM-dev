@@ -89,18 +89,8 @@ Console.WriteLine(MinecraftServerStringBuilder.BuildArgs(serverInstanceLauncherC
 
 #region INITIALIZE APPLICATION BUILDER BASED ON DEBUG
 
-#if DEBUG
-
-IApplicationBuilder builder = new DebugApplicationBuilder()
+IApplicationBuilder builder = ((IApplicationBuilder)(ConstantsAbstraction.DEBUG ? new DebugApplicationBuilder() : new DefaultApplicationBuilder()))
     .Build(args)
     .Start();
-
-#else
-
-IApplicationBuilder builder = new DefaultApplicationBuilder()
-    .Build(args)
-    .Start();
-
-#endif
 
 #endregion INITIALIZE APPLICATION BUILDER BASED ON DEBUG
