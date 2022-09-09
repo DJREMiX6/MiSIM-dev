@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using MinecraftServerInstancesLauncher.Common.Utils.ConsoleManagement;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 
@@ -70,7 +71,7 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
                     Log(data.Data);
                     break;
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidEnumArgumentException($"{data.Type} is not a valid {nameof(MinecraftServerOutputType)}.");
             }
         }
         #endregion IMinecraftServerInterpretedDataReceiver IMPLEMENTATION
