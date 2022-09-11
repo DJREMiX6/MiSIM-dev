@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation
+﻿namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation
 {
+    /// <summary>
+    /// <c>MinecraftServerOutputInterpretedDataReceived</c> event listener abstraction.
+    /// </summary>
     public interface IMinecraftServerOutputInterpretedDataReceiver
     {
+        /// <summary>
+        /// <c>MinecraftServerOutputInterpretedDataReceived</c> event listener.
+        /// </summary>
         public void MinecraftServerOutputInterpretedDataReceived(object sender, MinecraftServerInterpretedOutputData data);
     }
 }

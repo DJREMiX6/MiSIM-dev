@@ -3,6 +3,9 @@ using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.Common.Utils.Const
 {
+    /// <summary>
+    /// Contains the default implementation of all the constants.
+    /// </summary>
     public class DefaultConstants : ConstantsAbstraction
     {
 

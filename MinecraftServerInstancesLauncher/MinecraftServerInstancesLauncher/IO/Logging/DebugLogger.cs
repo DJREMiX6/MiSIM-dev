@@ -1,14 +1,10 @@
-﻿using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
-using System;
-using System.Collections.Generic;
+﻿using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
+using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinecraftServerInstancesLauncher.IO.Logging
 {
-    internal class DebugLogger : ILogger
+    internal class DebugLogger : IMinecraftServerLogger
     {
         public void Log(string message)
         {

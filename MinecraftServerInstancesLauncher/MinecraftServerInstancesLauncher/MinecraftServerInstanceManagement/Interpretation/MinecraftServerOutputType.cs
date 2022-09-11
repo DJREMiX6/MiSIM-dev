@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation
+﻿namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation
 {
+    /// <summary>
+    /// Minecraft server output type.
+    /// </summary>
     public enum MinecraftServerOutputType
     {
         DEFAULT,

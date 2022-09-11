@@ -1,19 +1,28 @@
-﻿using MinecraftServerInstancesLauncher.IO.Logging.LogFileManagement;
+﻿using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
+using MinecraftServerInstancesLauncher.IO.Logging.LogFileManagement;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinecraftServerInstancesLauncher.IO.Logging
 {
-    public class FileLogger : ILogger
+    /// <summary>
+    /// Holds all the methods to log messages into a Log file.
+    /// </summary>
+    public class FileLogger : IMinecraftServerLogger
     {
 
-        LogFileGate logFileGate = LogFileGate.Instance;
+        #region PRIVATE FIELDS
+
+        private LogFileGate _logFileGate;
+
+        #endregion PRIVATE FIELDS
+
+        #region PRIVATE PROPS
+
+        private LogFileGate logFileGate => _logFileGate ??= LogFileGate.Instance;
+
+        #endregion PRIVATE PROPS
 
         #region ILogger IMPLEMENTATION
 
@@ -86,6 +95,9 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
 
         #region PRIVATE METHODS
 
+        /// <summary>
+        /// Writes a log message into a Log file accessing it by the <c>LogFIleGate</c>.
+        /// </summary>
         private void WriteToLogFileGate(string log)
         {
             logFileGate.Write(log);

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.Json;
-using MinecraftServerInstancesLauncher.Common.Utils.Const;
+﻿using System.Text.Json;
 
 namespace MinecraftServerInstancesLauncher.IO.Config
 {
     //TODO EXTRACT THE CONFIG FILE OPENING/WRITING/READING IN ANOTHER CLASS
+
+    /// <summary>
+    /// Reads, writes and holds <c>ServerInstanceLauncherConfiguration</c> from a Config file.
+    /// </summary>
     public class ServerInstanceLauncherConfigurationLoader
     {
 
@@ -33,28 +34,25 @@ namespace MinecraftServerInstancesLauncher.IO.Config
             private set => serverInstanceLauncherConfiguration = value;
         }
 
-        public bool IsConfigLoaded
-        {
-            get => isConfigLoaded;
-            private set => isConfigLoaded = value;
-        }
-
         #endregion PUBLIC PROPERTIES
 
         #region CTORS
 
         private ServerInstanceLauncherConfigurationLoader()
         {
-
+            LoadConfig();
         }
 
         #endregion CTORS
 
         #region PUBLIC METHODS
 
+        /// <summary>
+        /// Reads configuration from Config file, if it doesn't exists then creates one with default values.
+        /// </summary>
         public void LoadConfig()
         {
-            if (!File.Exists(ConstantsImplementation.Instance.CONFIG_FILE_FULL_PATH))
+            if (!File.Exists(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH))
             {
                 CreateDefaultConfigFile();
             }
@@ -65,31 +63,42 @@ namespace MinecraftServerInstancesLauncher.IO.Config
 
         #region PRIVATE METHODS
 
+        /// <summary>
+        /// Opens the Config file, reads it and loads the configurations.
+        /// </summary>
         private void OpenConfigFileAndLoadConfig()
         {
             OpenConfigFileStream();
             ServerInstanceLauncherConfiguration config = JsonSerializer.Deserialize<ServerInstanceLauncherConfiguration>(configFileStream);
             this.ServerInstanceLauncherConfiguration = config;
             CloseConfigFileStream();
-            IsConfigLoaded = true;
         }
 
+        /// <summary>
+        /// Creates a Config file with default values.
+        /// </summary>
         private void CreateDefaultConfigFile()
         {
             CreateConfigFile();
             WriteDefaultValuesInConfigFile();
         }
 
+        /// <summary>
+        /// Creates a new Config file.
+        /// </summary>
         private void CreateConfigFile()
         {
-            configFileStream = File.Create(ConstantsImplementation.Instance.CONFIG_FILE_FULL_PATH);
+            configFileStream = File.Create(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH);
             CloseConfigFileStream();
         }
 
+        /// <summary>
+        /// Writes default values into the Config file.
+        /// </summary>
         private void WriteDefaultValuesInConfigFile()
         {
             OpenConfigFileStream();
-            string configDefaultJsonString = JsonSerializer.Serialize(ConstantsImplementation.Instance.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
+            string configDefaultJsonString = JsonSerializer.Serialize(ConstantsAbstraction.Instance.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
             foreach (char c in configDefaultJsonString)
             {
                 byte characterInByte = (byte)c;
@@ -98,11 +107,17 @@ namespace MinecraftServerInstancesLauncher.IO.Config
             CloseConfigFileStream();
         }
 
+        /// <summary>
+        /// Opens the Config file stream.
+        /// </summary>
         private void OpenConfigFileStream()
         {
-            configFileStream = File.Open(ConstantsImplementation.Instance.CONFIG_FILE_FULL_PATH, FileMode.Open);
+            configFileStream = File.Open(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH, FileMode.Open);
         }
 
+        /// <summary>
+        /// Closes the Config file stream.
+        /// </summary>
         private void CloseConfigFileStream()
         {
             configFileStream?.Dispose();

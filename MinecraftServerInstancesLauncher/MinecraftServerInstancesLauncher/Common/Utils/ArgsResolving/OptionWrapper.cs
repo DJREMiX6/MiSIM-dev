@@ -2,6 +2,9 @@
 
 namespace MinecraftServerInstancesLauncher.Common.Utils.ArgsResolving
 {
+    /// <summary>
+    /// Wrapper class for <c>System.CommandLine Option</c>.
+    /// </summary>
     public class OptionWrapper<T> : Option<T>
     {
         public OptionWrapper(string name, string? description = null) : base(name, description)

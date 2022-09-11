@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using MinecraftServerInstancesLauncher.Common.Utils;
 using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
 {
+    /// <summary>
+    /// Holds all the methods to initialize and start the Minecraft server process.
+    /// </summary>
     public class MinecraftServerProcess : Process
     {
 
@@ -20,6 +18,9 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
             InitializeServerStartInfo();
         }
 
+        /// <summary>
+        /// Builds files paths and Minecraft server arguments to start the process and sets up all the <c>StartInfo</c> necessary properties.
+        /// </summary>
         private void InitializeServerStartInfo()
         {
             StartInfo.FileName = MinecraftServerStringBuilder.BuildJavaPath(config);
@@ -28,7 +29,10 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
         }
-        
+
+        /// <summary>
+        /// Starts the Minecraft server process as child process and begins to read from its <c>std_out</c> and <c>std_err</c>.
+        /// </summary>
         public new void Start()
         {
             base.Start();

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement;
-using MinecraftServerInstancesLauncher.Common.Utils.Const;
+﻿using System.Diagnostics;
 
 namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation
 {
+    /// <summary>
+    /// Interpreter class for Minecraft server output.
+    /// </summary>
     public class MinecraftServerOutputInterpreter : IProcessDataReceiver
     {
 
@@ -30,22 +26,28 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Int
             }
         }
 
+        /// <summary>
+        /// <c>MinecraftServerOutputDataInterpreted</c> event invoker.
+        /// </summary>
         private void OnDataReceived(string data, MinecraftServerOutputType type)
         {
             MinecraftServerOutputDataInterpreted?.Invoke(this, new MinecraftServerInterpretedOutputData(data, type));
         }
 
+        /// <summary>
+        /// Gets the <c>MinecraftServerOutputType</c> of a Minecraft server output based on ints content.
+        /// </summary>
         private MinecraftServerOutputType GetOutputType(string data)
         {
-            if (data.ToUpper().Contains(ConstantsImplementation.Instance.MINECRAFT_SERVER_OUTPUT_ERROR))
+            if (data.ToUpper().Contains(ConstantsAbstraction.Instance.MINECRAFT_SERVER_OUTPUT_ERROR))
             {
                 return MinecraftServerOutputType.ERROR;
             }
-            if (data.ToUpper().Contains(ConstantsImplementation.Instance.MINECRAFT_SERVER_OUTPUT_WARNING))
+            if (data.ToUpper().Contains(ConstantsAbstraction.Instance.MINECRAFT_SERVER_OUTPUT_WARNING))
             {
                 return MinecraftServerOutputType.WARNING;
             }
-            if (data.ToUpper().Contains(ConstantsImplementation.Instance.MINECRAFT_SERVER_OUTPUT_INFO))
+            if (data.ToUpper().Contains(ConstantsAbstraction.Instance.MINECRAFT_SERVER_OUTPUT_INFO))
             {
                 return MinecraftServerOutputType.INFO;
             }

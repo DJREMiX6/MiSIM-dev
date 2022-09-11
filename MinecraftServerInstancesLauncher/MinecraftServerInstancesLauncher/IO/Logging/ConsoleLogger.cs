@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using MinecraftServerInstancesLauncher.Common.Utils.ConsoleManagement;
+using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 
 namespace MinecraftServerInstancesLauncher.IO.Logging
 {
-    public class ConsoleLogger : ILogger
+    /// <summary>
+    /// Holds all the methods to log messages into the <c>std_out/Console</c>.
+    /// </summary>
+    public class ConsoleLogger : IMinecraftServerLogger
     {
         #region ILogger IMPLEMENTATION
         public void Log(string message)
