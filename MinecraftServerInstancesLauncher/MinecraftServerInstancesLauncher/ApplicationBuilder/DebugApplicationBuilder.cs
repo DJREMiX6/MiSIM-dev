@@ -14,7 +14,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
 
         #region PRIVATE FIELDS
 
-        private List<IMinecraftServerLogger> _minecraftServerminecraftServerLoggers;
+        private List<IMinecraftServerLogger> _minecraftServerLoggers;
 
         #endregion PRIVATE FIELDS
 
@@ -23,7 +23,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         protected ArgsResolverBase _argsResolver;
         protected MinecraftServerProcessManager _minecraftServerProcessManager;
         protected MinecraftServerOutputInterpreter _minecraftServerOutputInterpreter;
-        protected List<IMinecraftServerLogger> minecraftServerLoggers => _minecraftServerminecraftServerLoggers ?? (_minecraftServerminecraftServerLoggers = new List<IMinecraftServerLogger>());
+        protected List<IMinecraftServerLogger> minecraftServerLoggers => _minecraftServerLoggers ?? (_minecraftServerLoggers = new List<IMinecraftServerLogger>());
 
         #endregion PROTECTED FIELDS
 
@@ -63,6 +63,19 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         }
 
         /// <summary>
+        /// Initializes the <c>ArgsResolver</c> with the debug options.
+        /// </summary>
+        /// <param name="args">The application arguments</param>
+        private void InitArgsResolver(string[] args)
+        {
+            _argsResolver = new ArgsResolver(ConstantsAbstraction.APPLICATION_NAME, args)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_PAUSE_PARAM_OPTION)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_CONSOLE_LOG_PARAM_OPTION)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_FILE_LOG_PARAM_OPTION)
+                .Resolve();
+        }
+
+        /// <summary>
         /// Creates a Minecraft server versions directory if it doesn't exists.
         /// </summary>
         private void CreateServerVersionsDirectory()
@@ -82,19 +95,6 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
             {
                 Directory.CreateDirectory(ConstantsAbstraction.Instance.JAVA_INSTANCES_FULL_PATH);
             }
-        }
-
-        /// <summary>
-        /// Initializes the <c>ArgsResolver</c> with the debug options.
-        /// </summary>
-        /// <param name="args">The application arguments</param>
-        private void InitArgsResolver(string[] args)
-        {
-            _argsResolver = new ArgsResolver(ConstantsAbstraction.APPLICATION_NAME, args)
-                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_PAUSE_PARAM_OPTION)
-                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_CONSOLE_LOG_PARAM_OPTION)
-                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_FILE_LOG_PARAM_OPTION)
-                .Resolve();
         }
 
         /// <summary>
