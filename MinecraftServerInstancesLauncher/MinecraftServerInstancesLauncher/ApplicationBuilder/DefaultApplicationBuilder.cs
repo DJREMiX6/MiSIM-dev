@@ -15,7 +15,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
 
         #region PRIVATE FIELDS
 
-        private List<IMinecraftServerLogger> _minecraftServerminecraftServerLoggers;
+        private List<IMinecraftServerLogger> _minecraftServerLoggers;
 
         #endregion PRIVATE FIELDS
 
@@ -25,7 +25,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         protected ArgsResolverBase _argsResolver;
         protected MinecraftServerProcessManager _minecraftServerProcessManager;
         protected MinecraftServerOutputInterpreter _minecraftServerOutputInterpreter;
-        protected List<IMinecraftServerLogger> loggers => _minecraftServerminecraftServerLoggers ?? (_minecraftServerminecraftServerLoggers = new List<IMinecraftServerLogger>());
+        protected List<IMinecraftServerLogger> loggers => _minecraftServerLoggers ?? (_minecraftServerLoggers = new List<IMinecraftServerLogger>());
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
         #endregion PROTECTED FIELDS
@@ -120,7 +120,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         /// </summary>
         private void SubscribeLoggersToServerOutputInterpretedDataReceivedEvent()
         {
-            foreach(IMinecraftServerLogger logger in _minecraftServerminecraftServerLoggers)
+            foreach(IMinecraftServerLogger logger in _minecraftServerLoggers)
             {
                 _minecraftServerOutputInterpreter.MinecraftServerOutputDataInterpreted += logger.MinecraftServerOutputInterpretedDataReceived;
             }
