@@ -39,6 +39,7 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
             }
         }
         public static string APPLICATION_NAME => "MiSIL - Minecraft Server Instances Launcher";
+        public static string MINECRAFT_SERVER_TYPE_VANILLA => "Vanilla";
 
 #if DEBUG
         /// <summary>
@@ -85,7 +86,7 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public abstract string SERVER_DEFAULT_MAX_RAM_FULL_ARG { get; }
         public abstract string SERVER_DEFAULT_JAVA_VERSION { get; }
         public abstract string SERVER_DEFAULT_VERSION { get; }
-        public abstract bool SERVER_DEFAULT_VANILLA { get; }
+        public abstract string SERVER_DEFAULT_SERVER_TYPE { get; }
         public abstract ServerInstanceLauncherConfiguration DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION { get; }
 
         #endregion MINECRAFT SERVER CONFIGURATIONS

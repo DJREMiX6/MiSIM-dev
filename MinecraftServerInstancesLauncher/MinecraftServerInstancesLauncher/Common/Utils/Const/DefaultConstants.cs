@@ -20,7 +20,7 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public override string SERVER_INSTANCE_FULL_PATH => Directory.GetCurrentDirectory();
         public override string SERVERS_VERSIONS_FOLDER_NAME => "MinecraftServersVersions";
         public override string SERVERS_VERSIONS_FULL_PATH => $@"{MiSIM_FULL_PATH}\{SERVERS_VERSIONS_FOLDER_NAME}";
-        public override string CONFIG_FILE_NAME => "launcher.config.json";
+        public override string CONFIG_FILE_NAME => "launcher._config.json";
         public override string CONFIG_FILE_FULL_PATH => $@"{SERVER_INSTANCE_FULL_PATH}\{CONFIG_FILE_NAME}";
         public override string LOG_FILE_NAME => "launcher.log";
         public override string LOG_FILE_FULL_PATH => $@"{SERVER_INSTANCE_FULL_PATH}\{LOG_FILE_NAME}";
@@ -40,12 +40,12 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public override string SERVER_DEFAULT_MAX_RAM_FULL_ARG => $"{SERVER_MAX_RAM_ARG}{SERVER_DEFAULT_MAX_RAM_VALUE}";
         public override string SERVER_DEFAULT_JAVA_VERSION => "jdk-17.0.3.1";
         public override string SERVER_DEFAULT_VERSION => "1.19";
-        public override bool SERVER_DEFAULT_VANILLA => true;
+        public override string SERVER_DEFAULT_SERVER_TYPE => "Vanilla";
         public override ServerInstanceLauncherConfiguration DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION => new()
         {
             JavaVersion = SERVER_DEFAULT_JAVA_VERSION,
             ServerVersion = SERVER_DEFAULT_VERSION,
-            Vanilla = SERVER_DEFAULT_VANILLA,
+            ServerType = SERVER_DEFAULT_SERVER_TYPE,
             MinRam = SERVER_DEFAULT_MIN_RAM_VALUE,
             MaxRam = SERVER_DEFAULT_MAX_RAM_VALUE
         };
