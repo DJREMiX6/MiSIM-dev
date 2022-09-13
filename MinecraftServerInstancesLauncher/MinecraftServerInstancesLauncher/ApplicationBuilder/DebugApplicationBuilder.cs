@@ -82,6 +82,13 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
                 .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_PAUSE_PARAM_OPTION)
                 .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_CONSOLE_LOG_PARAM_OPTION)
                 .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_FILE_LOG_PARAM_OPTION)
+
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_JAVA_VERSION_PARAM_OPTION)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_SERVER_VERSION_PARAM_OPTION)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_SERVER_TYPE_PARAM_OPTION)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_MIN_RAM_PARAM_OPTION)
+                .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_MAX_RAM_PARAM_OPTION)
+
                 .Resolve();
         }
 

@@ -129,6 +129,22 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public abstract string APPLICATION_FILE_LOG_PARAM_DESCRIPTION { get; }
         public abstract OptionWrapper<bool> APPLICATION_FILE_LOG_PARAM_OPTION { get; }
 
+        public abstract string[] APPLICATION_JAVA_VERSION_PARAM_NAMES { get; }
+        public abstract string APPLICATION_JAVA_VERSION_PARAM_DESCRIPTION { get; }
+        public abstract OptionWrapper<string> APPLICATION_JAVA_VERSION_PARAM_OPTION { get; }
+        public abstract string[] APPLICATION_SERVER_VERSION_PARAM_NAMES { get; }
+        public abstract string APPLICATION_SERVER_VERSION_PARAM_DESCRIPTION { get; }
+        public abstract OptionWrapper<string> APPLICATION_SERVER_VERSION_PARAM_OPTION { get; }
+        public abstract string[] APPLICATION_SERVER_TYPE_PARAM_NAMES { get; }
+        public abstract string APPLICATION_JAVA_SERVER_TYPEM_DESCRIPTION { get; }
+        public abstract OptionWrapper<string> APPLICATION_SERVER_TYPE_PARAM_OPTION { get; }
+        public abstract string[] APPLICATION_MIN_RAM_PARAM_NAMES { get; }
+        public abstract string APPLICATION_MIN_RAM_PARAM_DESCRIPTION { get; }
+        public abstract OptionWrapper<string> APPLICATION_MIN_RAM_PARAM_OPTION { get; }
+        public abstract string[] APPLICATION_MAX_RAM_PARAM_NAMES { get; }
+        public abstract string APPLICATION_MAX_RAM_PARAM_DESCRIPTION { get; }
+        public abstract OptionWrapper<string> APPLICATION_MAX_RAM_PARAM_OPTION { get; }
+
         #endregion APPLICATION ARGS
 
         #endregion PUBLIC ABSTRACT CONSTANT PROPS
