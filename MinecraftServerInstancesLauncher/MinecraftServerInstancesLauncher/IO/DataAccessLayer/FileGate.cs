@@ -41,6 +41,23 @@
         }
 
         /// <summary>
+        /// Deletes the file.
+        /// </summary>
+        public virtual void DeleteFile()
+        {
+            File.Delete(fileInfo.FullName);
+        }
+
+        /// <summary>
+        /// Clears the content of the file by deleting and recreating it.
+        /// </summary>
+        public virtual void ClearFile()
+        {
+            DeleteFile();
+            CreateFile();
+        }
+
+        /// <summary>
         /// Writes a text into the file. If the file doesn't exists then throws a <c>FileNotFoundException</c> or creates it if <c>createFileIfNotExists</c> is true.
         /// </summary>
         /// <exception cref="FileNotFoundException"></exception>

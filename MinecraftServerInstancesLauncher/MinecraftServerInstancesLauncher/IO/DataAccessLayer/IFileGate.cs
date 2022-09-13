@@ -10,6 +10,14 @@
         /// </summary>
         public void CreateFile();
         /// <summary>
+        /// Deletes the file.
+        /// </summary>
+        public void DeleteFile();
+        /// <summary>
+        /// Erases the content of the file.
+        /// </summary>
+        public void ClearFile();
+        /// <summary>
         /// Writes a text into the file. If the file doesn't exists then throws a <c>FileNotFoundException</c> or creates it if <c>createFileIfNotExists</c> is true.
         /// </summary>
         /// <exception cref="FileNotFoundException"></exception>
