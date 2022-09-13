@@ -1,4 +1,5 @@
-﻿using MinecraftServerInstancesLauncher.IO.Config;
+﻿using MinecraftServerInstancesLauncher.Common.Utils;
+using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
 {
@@ -21,7 +22,23 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
         private void InitializeManager()
         {
             configurationLoader = ServerInstanceLauncherConfigurationLoader.Instance;
-            serverProcess = new MinecraftServerProcess(configurationLoader.ServerInstanceLauncherConfiguration);
+            configurationLoader.LoadConfig();
+            serverProcess = new MinecraftServerProcess(configurationLoader.ServerInstanceLauncherConfiguration, GetMinecraftServerStringBuilder());
+        }
+
+        /// <summary>
+        /// Initialize the right instance of <c>IMinecraftServerStringBuilder</c> based on configuration file.
+        /// </summary>
+        /// <returns>The instance of <c>IMinecraftServerStringBuilder</c>.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        private IMinecraftServerStringBuilder GetMinecraftServerStringBuilder()
+        {
+            string serverType = configurationLoader.ServerInstanceLauncherConfiguration.ServerType;
+            if(serverType.Equals(ConstantsAbstraction.MINECRAFT_SERVER_TYPE_VANILLA))
+            {
+                return new VanillaMinecraftServerStringBuilder();
+            }
+            throw new InvalidOperationException($"{serverType} is not a valid {nameof(configurationLoader.ServerInstanceLauncherConfiguration.ServerType)}.");
         }
 
         /// <summary>

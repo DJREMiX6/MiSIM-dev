@@ -10,11 +10,13 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
     public class MinecraftServerProcess : Process
     {
 
-        private ServerInstanceLauncherConfiguration config;
+        private ServerInstanceLauncherConfiguration _config;
+        private IMinecraftServerStringBuilder _minecraftServerStringBuilder;
 
-        public MinecraftServerProcess(ServerInstanceLauncherConfiguration config) : base()
+        public MinecraftServerProcess(ServerInstanceLauncherConfiguration config, IMinecraftServerStringBuilder minecraftServerStringBuilder) : base()
         {
-            this.config = config;
+            _config = config;
+            _minecraftServerStringBuilder = minecraftServerStringBuilder;
             InitializeServerStartInfo();
         }
 
@@ -23,8 +25,8 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
         /// </summary>
         private void InitializeServerStartInfo()
         {
-            StartInfo.FileName = MinecraftServerStringBuilder.BuildJavaPath(config);
-            StartInfo.Arguments = MinecraftServerStringBuilder.BuildArgs(config);
+            StartInfo.FileName = _minecraftServerStringBuilder.BuildJavaPath(_config);
+            StartInfo.Arguments = _minecraftServerStringBuilder.BuildArgs(_config);
             StartInfo.UseShellExecute = false;
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
