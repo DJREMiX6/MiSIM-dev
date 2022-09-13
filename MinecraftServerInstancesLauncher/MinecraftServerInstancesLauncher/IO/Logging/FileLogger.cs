@@ -1,4 +1,5 @@
-﻿using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
+﻿using MinecraftServerInstancesLauncher.IO.DataAccessLayer;
+using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
 using MinecraftServerInstancesLauncher.IO.Logging.LogFileManagement;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 using System.ComponentModel;
@@ -14,13 +15,13 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
 
         #region PRIVATE FIELDS
 
-        private LogFileGate _logFileGate;
+        private IFileGate _logFileGate;
 
         #endregion PRIVATE FIELDS
 
         #region PRIVATE PROPS
 
-        private LogFileGate logFileGate => _logFileGate ??= LogFileGate.Instance;
+        private IFileGate logFileGate => _logFileGate ??= new LogFileGate();
 
         #endregion PRIVATE PROPS
 
@@ -100,7 +101,7 @@ namespace MinecraftServerInstancesLauncher.IO.Logging
         /// </summary>
         private void WriteToLogFileGate(string log)
         {
-            logFileGate.Write(log);
+            logFileGate.WriteAsync(log, true);
         }
 
         #endregion PRIVATE METHODS

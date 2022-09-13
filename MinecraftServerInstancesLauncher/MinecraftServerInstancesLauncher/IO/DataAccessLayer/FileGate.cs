@@ -3,7 +3,7 @@
     /// <summary>
     /// Manages the Read and WriteAsync access to a file.
     /// </summary>
-    public class FileGate
+    public class FileGate : IFileGate
     {
 
         #region PROTECTED FIELDS

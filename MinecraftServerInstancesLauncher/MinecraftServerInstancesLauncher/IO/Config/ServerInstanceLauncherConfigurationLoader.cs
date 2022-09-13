@@ -1,9 +1,8 @@
-﻿using System.Text.Json;
+﻿using MinecraftServerInstancesLauncher.IO.DataAccessLayer;
+using System.Text.Json;
 
 namespace MinecraftServerInstancesLauncher.IO.Config
 {
-    //TODO EXTRACT THE CONFIG FILE OPENING/WRITING/READING IN ANOTHER CLASS
-
     /// <summary>
     /// Reads, writes and holds <c>ServerInstanceLauncherConfiguration</c> from a Config file.
     /// </summary>
@@ -12,26 +11,32 @@ namespace MinecraftServerInstancesLauncher.IO.Config
 
         #region BACKING FIELDS
 
-        private ServerInstanceLauncherConfiguration serverInstanceLauncherConfiguration;
+        private ServerInstanceLauncherConfiguration _serverInstanceLauncherConfiguration;
+        private IFileGate _configFileGate;
+        private static ServerInstanceLauncherConfigurationLoader _instance;
 
         #endregion BACKING FIELDS
 
         #region PRIVATE VARS
 
-        private FileStream configFileStream;
-        private static ServerInstanceLauncherConfigurationLoader instance;
-        private bool isConfigLoaded;
+        private bool _isConfigLoaded;
 
         #endregion PRIVATE VARS
 
+        #region PRIVATE PROPS
+
+        private IFileGate configFileGate => _configFileGate ??= new ServerInstanceLauncherConfigurationFileGate();
+
+        #endregion PRIVATE PROPS
+
         #region PUBLIC PROPERTIES
 
-        public static ServerInstanceLauncherConfigurationLoader Instance => instance ?? (instance = new ServerInstanceLauncherConfigurationLoader());
+        public static ServerInstanceLauncherConfigurationLoader Instance => _instance ?? (_instance = new ServerInstanceLauncherConfigurationLoader());
 
         public ServerInstanceLauncherConfiguration ServerInstanceLauncherConfiguration
         {
-            get => serverInstanceLauncherConfiguration;
-            private set => serverInstanceLauncherConfiguration = value;
+            get => _serverInstanceLauncherConfiguration;
+            private set => _serverInstanceLauncherConfiguration = value;
         }
 
         #endregion PUBLIC PROPERTIES
@@ -68,10 +73,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         /// </summary>
         private void OpenConfigFileAndLoadConfig()
         {
-            OpenConfigFileStream();
-            ServerInstanceLauncherConfiguration config = JsonSerializer.Deserialize<ServerInstanceLauncherConfiguration>(configFileStream);
-            this.ServerInstanceLauncherConfiguration = config;
-            CloseConfigFileStream();
+            this.ServerInstanceLauncherConfiguration = JsonSerializer.Deserialize<ServerInstanceLauncherConfiguration>(configFileGate.ReadToEnd());
         }
 
         /// <summary>
@@ -88,8 +90,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         /// </summary>
         private void CreateConfigFile()
         {
-            configFileStream = File.Create(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH);
-            CloseConfigFileStream();
+            configFileGate.CreateFile();
         }
 
         /// <summary>
@@ -97,31 +98,8 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         /// </summary>
         private void WriteDefaultValuesInConfigFile()
         {
-            OpenConfigFileStream();
             string configDefaultJsonString = JsonSerializer.Serialize(ConstantsAbstraction.Instance.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
-            foreach (char c in configDefaultJsonString)
-            {
-                byte characterInByte = (byte)c;
-                configFileStream.WriteByte(characterInByte);
-            }
-            CloseConfigFileStream();
-        }
-
-        /// <summary>
-        /// Opens the Config file stream.
-        /// </summary>
-        private void OpenConfigFileStream()
-        {
-            configFileStream = File.Open(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH, FileMode.Open);
-        }
-
-        /// <summary>
-        /// Closes the Config file stream.
-        /// </summary>
-        private void CloseConfigFileStream()
-        {
-            configFileStream?.Dispose();
-            configFileStream?.Close();
+            configFileGate.Write(configDefaultJsonString);
         }
 
         #endregion PRIVATE METHODS
