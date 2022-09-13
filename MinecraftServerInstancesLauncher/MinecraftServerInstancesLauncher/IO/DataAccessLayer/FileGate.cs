@@ -37,7 +37,7 @@
         /// </summary>
         public virtual void CreateFile()
         {
-            File.Create(fileInfo.FullName);
+            File.Create(fileInfo.FullName).Close();
         }
 
         /// <summary>
@@ -62,6 +62,7 @@
             using (StreamWriter writer = new StreamWriter(fileInfo.FullName))
             {
                 writer.Write(text);
+                writer.Close();
             }
         }
 
@@ -120,7 +121,9 @@
         {
             using(StreamReader reader = new StreamReader(fileInfo.FullName))
             {
-                return reader.ReadLine();
+                string? line = reader.ReadLine();
+                reader.Close();
+                return line;
             }
         }
 
@@ -137,7 +140,9 @@
 
             using(StreamReader reader = new StreamReader(fileInfo.FullName))
             {
-                return reader.ReadToEnd();
+                string content = reader.ReadToEnd();
+                reader.Close();
+                return content;
             }
         }
 
@@ -189,6 +194,7 @@
                     string text = writeQueue.Dequeue();
                     await writer.WriteAsync(text);
                 }
+                writer.Close();
             }
             StoppedWriting();
         }

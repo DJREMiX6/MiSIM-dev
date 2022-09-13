@@ -3,6 +3,7 @@ using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement;
 using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpretation;
 using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
 using MinecraftServerInstancesLauncher.IO.Logging;
+using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.ApplicationBuilder
 {
@@ -32,6 +33,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         public IApplicationBuilder Build(string[] args)
         {
             SetConstantImplementationInstance();
+            LoadLauncherConfiguration();
             InitArgsResolver(args);
             CreateServerVersionsDirectory();
             CreateJavaInstancesDirectory();
@@ -60,6 +62,14 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         private void SetConstantImplementationInstance()
         {
             ConstantsAbstraction.Instance = new DebugConstants();
+        }
+
+        /// <summary>
+        /// Loads the <c>ServerInstanceLauncherConfiguration</c> from Configuration file.
+        /// </summary>
+        private void LoadLauncherConfiguration()
+        {
+            ServerInstanceLauncherConfigurationLoader.Instance.LoadConfig();
         }
 
         /// <summary>

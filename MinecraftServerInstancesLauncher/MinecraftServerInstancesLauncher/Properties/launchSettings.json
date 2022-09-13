@@ -2,6 +2,7 @@
   "profiles": {
     "MinecraftServerInstancesLauncher": {
       "commandName": "Project",
+      "commandLineArgs": "-p -c -f",
       "hotReloadEnabled": false
     }
   }

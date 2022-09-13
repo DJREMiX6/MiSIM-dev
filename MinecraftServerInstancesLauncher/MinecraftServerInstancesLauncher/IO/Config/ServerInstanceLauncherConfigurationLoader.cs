@@ -44,9 +44,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         #region CTORS
 
         private ServerInstanceLauncherConfigurationLoader()
-        {
-            LoadConfig();
-        }
+        { }
 
         #endregion CTORS
 
@@ -57,11 +55,14 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         /// </summary>
         public void LoadConfig()
         {
-            if (!File.Exists(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH))
+            if (!_isConfigLoaded)
             {
-                CreateDefaultConfigFile();
+                if (!File.Exists(ConstantsAbstraction.Instance.CONFIG_FILE_FULL_PATH))
+                {
+                    CreateDefaultConfigFile();
+                }
+                OpenConfigFileAndLoadConfig();
             }
-            OpenConfigFileAndLoadConfig();
         }
 
         #endregion PUBLIC METHODS
@@ -74,6 +75,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         private void OpenConfigFileAndLoadConfig()
         {
             this.ServerInstanceLauncherConfiguration = JsonSerializer.Deserialize<ServerInstanceLauncherConfiguration>(configFileGate.ReadToEnd());
+            _isConfigLoaded = true;
         }
 
         /// <summary>

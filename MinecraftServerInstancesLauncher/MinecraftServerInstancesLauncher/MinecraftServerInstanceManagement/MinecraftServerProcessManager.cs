@@ -22,7 +22,6 @@ namespace MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement
         private void InitializeManager()
         {
             configurationLoader = ServerInstanceLauncherConfigurationLoader.Instance;
-            configurationLoader.LoadConfig();
             serverProcess = new MinecraftServerProcess(configurationLoader.ServerInstanceLauncherConfiguration, GetMinecraftServerStringBuilder());
         }
 

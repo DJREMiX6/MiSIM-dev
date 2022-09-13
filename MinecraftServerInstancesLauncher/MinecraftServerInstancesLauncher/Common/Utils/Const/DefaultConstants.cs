@@ -20,7 +20,7 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
         public override string SERVER_INSTANCE_FULL_PATH => Directory.GetCurrentDirectory();
         public override string SERVERS_VERSIONS_FOLDER_NAME => "MinecraftServersVersions";
         public override string SERVERS_VERSIONS_FULL_PATH => $@"{MiSIM_FULL_PATH}\{SERVERS_VERSIONS_FOLDER_NAME}";
-        public override string CONFIG_FILE_NAME => "launcher._config.json";
+        public override string CONFIG_FILE_NAME => "launcher.config";
         public override string CONFIG_FILE_FULL_PATH => $@"{SERVER_INSTANCE_FULL_PATH}\{CONFIG_FILE_NAME}";
         public override string LOG_FILE_NAME => "launcher.log";
         public override string LOG_FILE_FULL_PATH => $@"{SERVER_INSTANCE_FULL_PATH}\{LOG_FILE_NAME}";
