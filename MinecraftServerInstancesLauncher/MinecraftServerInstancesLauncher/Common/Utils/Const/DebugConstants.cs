@@ -95,23 +95,23 @@ namespace MinecraftServerInstancesLauncher.Common.Utils.Const
 
 
         public override string[] APPLICATION_JAVA_VERSION_PARAM_NAMES => new string[] { "-j", "--java-version" };
-        public override string APPLICATION_JAVA_VERSION_PARAM_DESCRIPTION => "Sets the Java version to use to start the Minecraft server.";
+        public override string APPLICATION_JAVA_VERSION_PARAM_DESCRIPTION => $"Sets the Java version to use to start the Minecraft server. This option overrides the {CONFIG_FILE_NAME} file.";
         public override OptionWrapper<string> APPLICATION_JAVA_VERSION_PARAM_OPTION => new OptionWrapper<string>(APPLICATION_JAVA_VERSION_PARAM_NAMES, APPLICATION_JAVA_VERSION_PARAM_DESCRIPTION);
 
         public override string[] APPLICATION_SERVER_VERSION_PARAM_NAMES => new string[] { "-v", "--server-version" };
-        public override string APPLICATION_SERVER_VERSION_PARAM_DESCRIPTION => "Sets the Minecraft server version.";
+        public override string APPLICATION_SERVER_VERSION_PARAM_DESCRIPTION => $"Sets the Minecraft server version. This option overrides the {CONFIG_FILE_NAME} file.";
         public override OptionWrapper<string> APPLICATION_SERVER_VERSION_PARAM_OPTION => new OptionWrapper<string>(APPLICATION_SERVER_VERSION_PARAM_NAMES, APPLICATION_SERVER_VERSION_PARAM_DESCRIPTION);
 
         public override string[] APPLICATION_SERVER_TYPE_PARAM_NAMES => new string[] { "-t", "--server-type" };
-        public override string APPLICATION_JAVA_SERVER_TYPEM_DESCRIPTION => "Sets the type of server ('vanilla', 'Forge', etc..).";
+        public override string APPLICATION_JAVA_SERVER_TYPEM_DESCRIPTION => $"Sets the type of server ('vanilla', 'Forge', etc..). This option overrides the {CONFIG_FILE_NAME} file.";
         public override OptionWrapper<string> APPLICATION_SERVER_TYPE_PARAM_OPTION => new OptionWrapper<string>(APPLICATION_SERVER_TYPE_PARAM_NAMES, APPLICATION_JAVA_SERVER_TYPEM_DESCRIPTION);
 
         public override string[] APPLICATION_MIN_RAM_PARAM_NAMES => new string[] { "-m", "--min-ram" };
-        public override string APPLICATION_MIN_RAM_PARAM_DESCRIPTION => "Sets the minimum amount of RAM dedicated to the server.";
+        public override string APPLICATION_MIN_RAM_PARAM_DESCRIPTION => $"Sets the minimum amount of RAM dedicated to the server. This option overrides the {CONFIG_FILE_NAME} file.";
         public override OptionWrapper<string> APPLICATION_MIN_RAM_PARAM_OPTION => new OptionWrapper<string>(APPLICATION_MIN_RAM_PARAM_NAMES, APPLICATION_MIN_RAM_PARAM_DESCRIPTION);
 
         public override string[] APPLICATION_MAX_RAM_PARAM_NAMES => new string[] { "-M", "--max-ram" };
-        public override string APPLICATION_MAX_RAM_PARAM_DESCRIPTION => "Sets the maximum amount of RAM dedicated to the server.";
+        public override string APPLICATION_MAX_RAM_PARAM_DESCRIPTION => $"Sets the maximum amount of RAM dedicated to the server. This option overrides the {CONFIG_FILE_NAME} file.";
         public override OptionWrapper<string> APPLICATION_MAX_RAM_PARAM_OPTION => new OptionWrapper<string>(APPLICATION_MAX_RAM_PARAM_NAMES, APPLICATION_MAX_RAM_PARAM_DESCRIPTION);
 
         #endregion APPLICATION ARGS

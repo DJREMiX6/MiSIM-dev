@@ -4,6 +4,7 @@ using MinecraftServerInstancesLauncher.MinecraftServerInstanceManagement.Interpr
 using MinecraftServerInstancesLauncher.IO.Logging;
 using MinecraftServerInstancesLauncher.Common.Utils.Const;
 using MinecraftServerInstancesLauncher.IO.Logging.LogAbstractions;
+using MinecraftServerInstancesLauncher.IO.Config;
 
 namespace MinecraftServerInstancesLauncher.ApplicationBuilder
 {
@@ -35,7 +36,9 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         public IApplicationBuilder Build(string[] args)
         {
             SetConstantsAbstractionInstance();
+            LoadLauncherConfiguration();
             InitArgsResolver(args);
+            SetLauncherConfigurationBasedOnApplicationArguments();
             InitMinecraftServerProcessManager();
             InitminecraftServerLoggers();
             InitMinecraftServerOutputInterpreter();
@@ -64,6 +67,14 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
         }
 
         /// <summary>
+        /// Loads the <c>ServerInstanceLauncherConfiguration</c> from Configuration file.
+        /// </summary>
+        private void LoadLauncherConfiguration()
+        {
+            ServerInstanceLauncherConfigurationLoader.Instance.LoadConfig();
+        }
+
+        /// <summary>
         /// Initializes the <c>ArgsResolver</c> with the default options.
         /// </summary>
         /// <param name="args">The application arguments</param>
@@ -81,6 +92,21 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
                 .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_MAX_RAM_PARAM_OPTION)
 
                 .Resolve();
+        }
+
+        /// <summary>
+        /// Sets each launcher config passed as arguments to the config file
+        /// </summary>
+        private void SetLauncherConfigurationBasedOnApplicationArguments()
+        {
+            ServerInstanceLauncherConfigurationLoader.Instance.OverrideConfig(new ServerInstanceLauncherConfiguration()
+            {
+                JavaVersion = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_JAVA_VERSION_PARAM_OPTION.Name),
+                ServerVersion = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_SERVER_VERSION_PARAM_OPTION.Name),
+                ServerType = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_SERVER_TYPE_PARAM_OPTION.Name),
+                MinRam = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_MIN_RAM_PARAM_OPTION.Name),
+                MaxRam = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_MAX_RAM_PARAM_OPTION.Name),
+            });
         }
 
         /// <summary>

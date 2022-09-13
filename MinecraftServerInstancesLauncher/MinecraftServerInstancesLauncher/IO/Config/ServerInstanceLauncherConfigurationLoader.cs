@@ -65,6 +65,15 @@ namespace MinecraftServerInstancesLauncher.IO.Config
             }
         }
 
+        public void OverrideConfig(ServerInstanceLauncherConfiguration newConfig)
+        {
+            configFileGate.ClearFile();
+            string configDefaultJsonString = JsonSerializer.Serialize(ServerInstanceLauncherConfiguration.GetConfigCompared(ServerInstanceLauncherConfiguration, newConfig));
+            configFileGate.Write(configDefaultJsonString);
+            _isConfigLoaded = false;
+            LoadConfig();
+        }
+
         #endregion PUBLIC METHODS
 
         #region PRIVATE METHODS

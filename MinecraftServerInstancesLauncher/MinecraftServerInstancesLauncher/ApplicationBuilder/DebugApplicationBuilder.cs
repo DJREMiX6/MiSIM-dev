@@ -35,6 +35,7 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
             SetConstantImplementationInstance();
             LoadLauncherConfiguration();
             InitArgsResolver(args);
+            SetLauncherConfigurationBasedOnApplicationArguments();
             CreateServerVersionsDirectory();
             CreateJavaInstancesDirectory();
             InitMinecraftServerProcessManager();
@@ -90,6 +91,21 @@ namespace MinecraftServerInstancesLauncher.ApplicationBuilder
                 .AddOptionChain(ConstantsAbstraction.Instance.APPLICATION_MAX_RAM_PARAM_OPTION)
 
                 .Resolve();
+        }
+
+        /// <summary>
+        /// Sets each launcher config passed as arguments to the config file
+        /// </summary>
+        private void SetLauncherConfigurationBasedOnApplicationArguments()
+        {
+            ServerInstanceLauncherConfigurationLoader.Instance.OverrideConfig(new ServerInstanceLauncherConfiguration()
+            {
+                JavaVersion = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_JAVA_VERSION_PARAM_OPTION.Name),
+                ServerVersion = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_SERVER_VERSION_PARAM_OPTION.Name),
+                ServerType = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_SERVER_TYPE_PARAM_OPTION.Name),
+                MinRam = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_MIN_RAM_PARAM_OPTION.Name),
+                MaxRam = _argsResolver.GetResult<string?>(ConstantsAbstraction.Instance.APPLICATION_MAX_RAM_PARAM_OPTION.Name),
+            });
         }
 
         /// <summary>
