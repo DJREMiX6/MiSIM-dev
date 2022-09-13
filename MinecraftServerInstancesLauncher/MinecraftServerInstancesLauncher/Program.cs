@@ -1,5 +1,4 @@
-﻿global using MinecraftServerInstancesLauncher.Common.Utils.Const;
-using MinecraftServerInstancesLauncher.ApplicationBuilder;
+﻿using MinecraftServerInstancesLauncher.ApplicationBuilder;
 
 #region OLD WORKING
 /*
