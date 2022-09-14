@@ -68,8 +68,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         public void OverrideConfig(ServerInstanceLauncherConfiguration newConfig)
         {
             configFileGate.ClearFile();
-            string configDefaultJsonString = JsonSerializer.Serialize(ServerInstanceLauncherConfiguration.GetConfigCompared(ServerInstanceLauncherConfiguration, newConfig));
-            configFileGate.Write(configDefaultJsonString);
+            WriteIntoConfigFile(ServerInstanceLauncherConfiguration.GetConfigCompared(ServerInstanceLauncherConfiguration, newConfig));
             _isConfigLoaded = false;
             LoadConfig();
         }
@@ -83,7 +82,7 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         /// </summary>
         private void OpenConfigFileAndLoadConfig()
         {
-            this.ServerInstanceLauncherConfiguration = JsonSerializer.Deserialize<ServerInstanceLauncherConfiguration>(configFileGate.ReadToEnd());
+            this.ServerInstanceLauncherConfiguration = ReadFromConfigFile();
             _isConfigLoaded = true;
         }
 
@@ -109,8 +108,26 @@ namespace MinecraftServerInstancesLauncher.IO.Config
         /// </summary>
         private void WriteDefaultValuesInConfigFile()
         {
-            string configDefaultJsonString = JsonSerializer.Serialize(ConstantsAbstraction.Instance.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
-            configFileGate.Write(configDefaultJsonString);
+            WriteIntoConfigFile(ConstantsAbstraction.Instance.DEFAULT_SERVER_INSTANCE_LAUNCHER_CONFIGURATION);
+        }
+
+        /// <summary>
+        /// Writes serialized instance of <c>ServerInstanceLauncherConfiguration</c> into the config file.
+        /// </summary>
+        /// <param name="config"></param>
+        private void WriteIntoConfigFile(ServerInstanceLauncherConfiguration config)
+        {
+            string serializedConfig = JsonSerializer.Serialize(config, new JsonSerializerOptions() { WriteIndented = true });
+            configFileGate.Write(serializedConfig);
+        }
+
+        /// <summary>
+        /// Reads and parses the <c>ServerInstanceLauncherConfiguration</c> from the Config file.
+        /// </summary>
+        /// <returns>A new instance of <c>ServerInstanceLauncherConfiguration</c> with parsed configuration from Config file.</returns>
+        private ServerInstanceLauncherConfiguration? ReadFromConfigFile()
+        {
+            return JsonSerializer.Deserialize<ServerInstanceLauncherConfiguration>(configFileGate.ReadToEnd());
         }
 
         #endregion PRIVATE METHODS
